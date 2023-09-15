@@ -1,3 +1,5 @@
+#the main purpose of this file is to create the full package of the entire appliction utilising distutils
+
 import setuptools
 
 
