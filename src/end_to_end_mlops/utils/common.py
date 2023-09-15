@@ -1,6 +1,14 @@
- #the pupose of this utils is to make a common space where all frequently used functions reside. 
- # Therefore, whenever we want we can use them by simply importing them. 
- 
+'''
+-------------- Information about this file ------------------------
+
+This file contains the all of the common frequently used functions which will be used throughout the project. 
+For example: 
+let's say we are going to read YAML file again and again then we simply write the function "read_yaml" here is this file
+Then we can directory use it by importing the utils. This way of the structuring the code will make overall design non-redudant and less 
+error prone. It also promotes reusuability and clean design principle. 
+---------------------------------------------------------------------
+'''
+  
 import os
 from box.exceptions import BoxValueError
 import yaml
@@ -13,9 +21,42 @@ from pathlib import Path
 from typing import Any
  
  
- # Basic Functionalities
+'''
+ Purpose of ConfigBox object returned by some of the following projects.
  
+ For example consider simple dictionary object 
+ 
+ d = {"k1":"val1","k2":"val2","k3":"val3"}
+ 
+now to access the "val1" we can write 
+
+d["k1"] # Not Allowed
+
+However we can not write d.k1.
+
+Now if we create ConfigBox object like 
+
+d2 = ConfigBox({"k1":"val1","k2":"val2","k3":"val3"})
+
+then it will allow us to access the "val1" value by simply 
+
+d2.k1   # Allowed
+
+The reason behind doing this is just an ease of accessing values when the program gets bigger. Makes code more readable. 
+ 
+ '''
+ 
+ 
+# Basic Functionalities
+'''
+@ensure_annotations decorator unable us to detect the potential arguments data type issues. Let's say, if the the function is only accepting 
+one integer argument and if the user try to pass the string argument then it will straight away throws the error of incompatible types.
+
+Makes our code less error prone. 
+'''
+
 @ensure_annotations 
+
 def read_yaml(path_to_yaml_file: Path) -> ConfigBox:
     '''reads yaml file 
     
@@ -140,7 +181,6 @@ def get_size(path: Path) -> str:
         str: size in KB
     
     '''
-    
     
     size = round(os.path.getsize(path)/1024)
     return f"~ {size} KB"
